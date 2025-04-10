@@ -3,51 +3,48 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    /* Use a more modern system font stack */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 body {
-    /* Remove flexbox centering - no longer needed for fixed chat */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
+    /* Body background can stay light, only chat is dark */
     min-height: 100vh;
-    padding: 20px;
-    /* background-color: #f0f0f0; Or a dark theme background */
+    padding: 15px;
+    background-color: #f0f0f0;
 }
 
 .chat-container {
     width: 400px;
     max-width: 100%;
     height: 700px; /* Adjust as needed */
-    /* background-color: #fff; */ /* Light theme background */
-     background-color: #1a1a2e;  /* Dark theme background */
+    /* background-color: #fff; */ /* Light theme comment */
+    background-color: #1a1a2e; /* Dark theme background */
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Slightly darker shadow for dark bg */
     display: none; /* Initially hidden - controlled by JS */
     flex-direction: column;
     overflow: hidden;
-    position: fixed; /* Changed from relative */
-    bottom: 20px; /* Position at bottom */
-    right: 20px;  /* Position at right */
-    z-index: 1000; /* Ensure it's above other content */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
 /* --- Header --- */
 .chat-header {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Example Gradient - Adjust colors */
-    /* background: linear-gradient(135deg, #ff8a00 0%, #e52e71 100%); */ /* Alternative Gradient */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Keep gradient */
     color: white;
-    padding: 20px;
+    padding: 15px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     text-align: left;
     position: relative;
 }
 
-.chat-header .logo {
+.chat-header .logo { /* Keep logo styles */
     background-color: white;
-    color: #6a11cb; /* Match gradient start */
+    color: #6a11cb;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -89,27 +86,27 @@ body {
 /* --- Messages Area --- */
 .chat-messages {
     flex-grow: 1;
-    padding: 20px;
+    padding: 15px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    /* background-color: #f9f9f9; */ /* Light theme */
-     background-color: #0f0c29; /* Dark theme */
+    /* background-color: #f9f9f9; */ /* Light theme comment */
+    background-color: #0f0c29; /* Dark theme background */
 }
 
 .message {
     display: flex;
     max-width: 80%;
-    align-items: flex-end; /* Align items to bottom */
+    align-items: flex-end;
 }
 
-.message .avatar {
+.message .avatar { /* Keep avatar styles */
     width: 30px;
     height: 30px;
     border-radius: 50%;
     margin-right: 10px;
-    align-self: flex-start; /* Keep avatar at the top */
+    align-self: flex-start;
 }
 
 .message-details {
@@ -119,8 +116,8 @@ body {
 
 .message-sender {
     font-size: 12px;
-    color: #aaa; /* Light theme */
-    /* color: #ccc; */ /* Dark theme */
+    /* color: #aaa; */ /* Light theme comment */
+    color: #ccc; /* Dark theme sender */
     margin-bottom: 3px;
     font-weight: bold;
 }
@@ -134,7 +131,8 @@ body {
 
 .message-time {
     font-size: 10px;
-    color: #aaa;
+    /* color: #aaa; */ /* Light theme comment */
+    color: #888; /* Dark theme time */
     margin-top: 5px;
     align-self: flex-end;
 }
@@ -142,18 +140,18 @@ body {
 /* User message specific styles */
 .message.user {
     align-self: flex-end;
-    flex-direction: row-reverse; /* Puts time below on the left */
+    flex-direction: row-reverse;
 }
 
-.message.user .message-content {
-    background-color: #6a11cb; /* User bubble color */
+.message.user .message-content { /* Keep user bubble styles */
+    background-color: #6a11cb;
     color: white;
     border-bottom-right-radius: 5px;
 }
 
 .message.user .message-time {
-     align-self: flex-start; /* Align time to the start (left) for user */
-     margin-right: 5px; /* Add some space */
+     align-self: flex-start;
+     margin-right: 5px;
 }
 
 /* Assistant message specific styles */
@@ -162,17 +160,20 @@ body {
 }
 
 .message.assistant .message-content {
-    background-color: #e5e5ea; /* Light theme assistant bubble */
-     /* background-color: #2c2c54; */ /* Dark theme assistant bubble */
-    color: #333; /* Light theme text */
-    /* color: #f0f0f0; */ /* Dark theme text */
+    /* background-color: #e5e5ea; */ /* Light theme comment */
+    background-color: #2c2c54; /* Dark theme assistant bubble */
+    /* color: #333; */ /* Light theme comment */
+    color: #f0f0f0; /* Dark theme text */
     border-bottom-left-radius: 5px;
 }
 
+/* Typing indicator styles */
 .message.assistant.typing .message-content {
     padding: 10px;
     display: flex;
     align-items: center;
+    background-color: #2c2c54; /* Dark theme typing background */
+    color: #ccc; /* Dark theme typing dots */
 }
 
 .message.assistant.typing .dot {
@@ -180,7 +181,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #aaa; /* Adjust color as needed */
+  background-color: #ccc; /* Dark theme typing dots */
   margin: 0 2px;
   animation: typing 1.4s infinite ease-in-out both;
 }
@@ -202,16 +203,18 @@ body {
   }
 }
 
-
 /* --- Input Area --- */
 .chat-input-area {
     display: flex;
     align-items: center;
     padding: 10px 15px;
-    border-top: 1px solid #eee; /* Light theme
-     border-top: 1px solid #2c2c54;  /* Dark theme */
-    background-color: #fff; /* Light theme */
-     /* background-color: #1a1a2e;  Dark theme */
+    /* border-top: 1px solid #eee; */ /* Light theme comment */
+    border-top: 1px solid #2c2c54; /* Dark theme border */
+    /* background-color: #fff; */ /* Light theme comment */
+    background-color: #1a1a2e; /* Dark theme background */
+    /* Add rounded corners matching container */
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .chat-input-area input {
@@ -221,8 +224,8 @@ body {
     padding: 10px;
     font-size: 14px;
     background-color: transparent;
-    color: #333; /* Light theme
-     /* color: #f0f0f0;  Dark theme */
+    /* color: #333; */ /* Light theme comment */
+    color: #f0f0f0; /* Dark theme text */
 }
 
 .chat-input-area button {
@@ -231,19 +234,18 @@ body {
     cursor: pointer;
     font-size: 20px;
     padding: 5px;
-    /* margin-left: 5px; */ /* Removed margin */
-    color: #aaa; /* Light theme */
-     /* color: #ccc;  Dark theme */
+    /* color: #aaa; */ /* Light theme comment */
+    color: #ccc; /* Dark theme button icon */
     transition: color 0.3s ease;
 }
 
 .chat-input-area button:hover {
-    color: #666; /* Light theme */
-     /* color: #fff;  Dark theme */
+    /* color: #666; */ /* Light theme comment */
+    color: #fff; /* Dark theme hover */
 }
 
-.chat-input-area .send-btn {
-    background-color: #6a11cb; /* Send button background */
+.chat-input-area .send-btn { /* Keep send button styles */
+    background-color: #6a11cb;
     color: white;
     border-radius: 50%;
     width: 35px;
@@ -253,19 +255,19 @@ body {
     align-items: center;
     font-size: 18px;
     transition: background-color 0.3s ease;
-    margin-left: 10px; /* Added margin to separate from input */
+    margin-left: 10px;
 }
 
 .chat-input-area .send-btn:hover {
-    background-color: #5a0caa; /* Darker shade on hover */
+    background-color: #5a0caa;
 }
 
-/* --- Chat Widget Button (Optional) --- */
-.chat-widget-button {
+/* --- Chat Widget Button --- */
+.chat-widget-button { /* Keep widget button styles */
     position: fixed;
-    bottom: 20px; /* Adjusted to match chat window corner */
-    right: 20px; /* Adjusted to match chat window corner */
-    background-color: #6a11cb; /* Match theme */
+    bottom: 20px;
+    right: 20px;
+    background-color: #6a11cb;
     color: white;
     border: none;
     border-radius: 50%;
@@ -278,13 +280,15 @@ body {
     justify-content: center;
     align-items: center;
     transition: transform 0.3s ease;
+    z-index: 1001;
 }
 
 .chat-widget-button:hover {
     transform: scale(1.1);
 }
 
-/* Scrollbar styling (optional, WebKit browsers) */
+/* Scrollbar styling */
+/* Keep scrollbar styles, maybe adjust thumb for dark */
 .chat-messages::-webkit-scrollbar {
     width: 6px;
 }
@@ -294,6 +298,7 @@ body {
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2); /* Lighter thumb for dark bg */
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 3px;
 }
