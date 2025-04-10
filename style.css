@@ -8,21 +8,27 @@
 }
 
 body {
-    /* Body background can stay light, only chat is dark */
+    /* Body background remains transparent */
     min-height: 100vh;
-    padding: 15px;
-    background-color: #f0f0f0;
+    background-color: transparent;
+}
+
+/* Define Pho24 Colors */
+:root {
+    --pho24-green: #5f803b;
+    --pho24-lime: #b8cd34;
+    --pho24-green-darker: #4d6a2f;
 }
 
 .chat-container {
     width: 400px;
     max-width: 100%;
-    height: 700px; /* Adjust as needed */
-    /* background-color: #fff; */ /* Light theme comment */
-    background-color: #1a1a2e; /* Dark theme background */
+    height: 700px;
+    background-color: #fff; /* Light theme main container background */
+    /* background-color: #1a1a2e; */ /* Dark theme comment */
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Slightly darker shadow for dark bg */
-    display: none; /* Initially hidden - controlled by JS */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow for light bg */
+    display: none;
     flex-direction: column;
     overflow: hidden;
     position: fixed;
@@ -33,8 +39,10 @@ body {
 
 /* --- Header --- */
 .chat-header {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Keep gradient */
-    color: white;
+    /* background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); */ /* Original gradient */
+    background-color: var(--pho24-green); /* Pho24 Green Header */
+    color: white; /* White text on green */
+    /* color: #333; */ /* Text color for light grey solid header */
     padding: 15px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -42,9 +50,10 @@ body {
     position: relative;
 }
 
-.chat-header .logo { /* Keep logo styles */
+.chat-header .logo {
     background-color: white;
-    color: #6a11cb;
+    color: var(--pho24-green); /* Pho24 Green text in logo */
+    /* color: #333; */ /* Color for solid header */
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -72,7 +81,8 @@ body {
     right: 15px;
     background: none;
     border: none;
-    color: white;
+    color: white; /* White icon on green header */
+    /* color: #aaa; */ /* Color for solid header */
     font-size: 24px;
     cursor: pointer;
     opacity: 0.8;
@@ -91,8 +101,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    /* background-color: #f9f9f9; */ /* Light theme comment */
-    background-color: #0f0c29; /* Dark theme background */
+    background-color: #f9f9f9; /* Light theme messages background */
+    /* background-color: #0f0c29; */ /* Dark theme comment */
 }
 
 .message {
@@ -101,7 +111,7 @@ body {
     align-items: flex-end;
 }
 
-.message .avatar { /* Keep avatar styles */
+.message .avatar { 
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -116,8 +126,8 @@ body {
 
 .message-sender {
     font-size: 12px;
-    /* color: #aaa; */ /* Light theme comment */
-    color: #ccc; /* Dark theme sender */
+    color: #aaa; /* Light theme sender name color */
+    /* color: #ccc; */ /* Dark theme comment */
     margin-bottom: 3px;
     font-weight: bold;
 }
@@ -131,8 +141,8 @@ body {
 
 .message-time {
     font-size: 10px;
-    /* color: #aaa; */ /* Light theme comment */
-    color: #888; /* Dark theme time */
+    color: #aaa; /* Light theme time color */
+    /* color: #888; */ /* Dark theme comment */
     margin-top: 5px;
     align-self: flex-end;
 }
@@ -143,8 +153,9 @@ body {
     flex-direction: row-reverse;
 }
 
-.message.user .message-content { /* Keep user bubble styles */
-    background-color: #6a11cb;
+.message.user .message-content {
+    /* background-color: #6a11cb; */ /* Original user bubble color */
+    background-color: var(--pho24-green); /* Pho24 Green user bubble */
     color: white;
     border-bottom-right-radius: 5px;
 }
@@ -160,10 +171,10 @@ body {
 }
 
 .message.assistant .message-content {
-    /* background-color: #e5e5ea; */ /* Light theme comment */
-    background-color: #2c2c54; /* Dark theme assistant bubble */
-    /* color: #333; */ /* Light theme comment */
-    color: #f0f0f0; /* Dark theme text */
+    background-color: #e5e5ea; /* Light theme assistant bubble */
+    /* background-color: #f0f0f0; */ /* Old Pho24 light grey */
+    /* background-color: #2c2c54; */ /* Dark theme comment */
+    color: #333; /* Dark text for light bubble */
     border-bottom-left-radius: 5px;
 }
 
@@ -172,8 +183,8 @@ body {
     padding: 10px;
     display: flex;
     align-items: center;
-    background-color: #2c2c54; /* Dark theme typing background */
-    color: #ccc; /* Dark theme typing dots */
+    background-color: #e5e5ea; /* Match light theme assistant bubble */
+    /* background-color: #f0f0f0; */ /* Old Pho24 light grey */
 }
 
 .message.assistant.typing .dot {
@@ -181,7 +192,8 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #ccc; /* Dark theme typing dots */
+  background-color: #aaa; /* Match light theme dots */
+  /* background-color: #aaa; */ /* Pho24 darker dots comment */
   margin: 0 2px;
   animation: typing 1.4s infinite ease-in-out both;
 }
@@ -208,11 +220,10 @@ body {
     display: flex;
     align-items: center;
     padding: 10px 15px;
-    /* border-top: 1px solid #eee; */ /* Light theme comment */
-    border-top: 1px solid #2c2c54; /* Dark theme border */
-    /* background-color: #fff; */ /* Light theme comment */
-    background-color: #1a1a2e; /* Dark theme background */
-    /* Add rounded corners matching container */
+    border-top: 1px solid #eee; /* Light theme border */
+    /* border-top: 1px solid #2c2c54; */ /* Dark theme comment */
+    background-color: #fff; /* Light theme background */
+    /* background-color: #1a1a2e; */ /* Dark theme comment */
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
@@ -224,28 +235,29 @@ body {
     padding: 10px;
     font-size: 14px;
     background-color: transparent;
-    /* color: #333; */ /* Light theme comment */
-    color: #f0f0f0; /* Dark theme text */
+    color: #333; /* Dark text for light input bg */
+    /* color: #f0f0f0; */ /* Dark theme comment */
 }
 
-.chat-input-area button {
+.chat-input-area button { 
     background: none;
     border: none;
     cursor: pointer;
     font-size: 20px;
     padding: 5px;
-    /* color: #aaa; */ /* Light theme comment */
-    color: #ccc; /* Dark theme button icon */
+    color: #aaa; /* Light theme icon color */
+    /* color: #ccc; */ /* Dark theme comment */
     transition: color 0.3s ease;
 }
 
 .chat-input-area button:hover {
-    /* color: #666; */ /* Light theme comment */
-    color: #fff; /* Dark theme hover */
+    color: #666; /* Light theme hover */
+    /* color: #fff; */ /* Dark theme comment */
 }
 
-.chat-input-area .send-btn { /* Keep send button styles */
-    background-color: #6a11cb;
+.chat-input-area .send-btn {
+    /* background-color: #6a11cb; */ /* Original send button color */
+    background-color: var(--pho24-green); /* Pho24 Green send button */
     color: white;
     border-radius: 50%;
     width: 35px;
@@ -259,15 +271,17 @@ body {
 }
 
 .chat-input-area .send-btn:hover {
-    background-color: #5a0caa;
+    /* background-color: #5a0caa; */ /* Original darker hover */
+    background-color: var(--pho24-green-darker); /* Darker green hover */
 }
 
 /* --- Chat Widget Button --- */
-.chat-widget-button { /* Keep widget button styles */
+.chat-widget-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #6a11cb;
+    /* background-color: #6a11cb; */ /* Original widget color */
+    background-color: var(--pho24-green); /* Pho24 Green widget button */
     color: white;
     border: none;
     border-radius: 50%;
@@ -275,20 +289,21 @@ body {
     height: 60px;
     font-size: 30px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     z-index: 1001;
 }
 
 .chat-widget-button:hover {
     transform: scale(1.1);
+    /* background-color: #5a0caa; */ /* Original darker hover */
+    background-color: var(--pho24-green-darker); /* Darker green hover */
 }
 
 /* Scrollbar styling */
-/* Keep scrollbar styles, maybe adjust thumb for dark */
 .chat-messages::-webkit-scrollbar {
     width: 6px;
 }
@@ -298,52 +313,9 @@ body {
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.2); /* Lighter thumb for dark bg */
-    background-color: rgba(0, 0, 0, 0.2);
+    /* background-color: rgba(255, 255, 255, 0.2); */ /* Dark theme thumb */
+    background-color: rgba(0, 0, 0, 0.2); /* Light theme thumb */
     border-radius: 3px;
 }
 
-/* Dark Theme Adjustments (Applied directly above now) */
-/*
-body.dark-theme {
-    background-color: #0f0c29;
-}
-
-.dark-theme .chat-container {
-    background-color: #1a1a2e;
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
-}
-
-.dark-theme .chat-messages {
-    background-color: #0f0c29;
-}
-
-.dark-theme .message.assistant .message-content {
-    background-color: #2c2c54;
-    color: #f0f0f0;
-}
-
-.dark-theme .message-sender {
-    color: #ccc;
-}
-
-.dark-theme .message-time {
-    color: #888;
-}
-
-.dark-theme .chat-input-area {
-    background-color: #1a1a2e;
-    border-top: 1px solid #2c2c54;
-}
-
-.dark-theme .chat-input-area input {
-    color: #f0f0f0;
-}
-
-.dark-theme .chat-input-area button {
-     color: #ccc;
-}
-
-.dark-theme .chat-input-area button:hover {
-    color: #fff;
-}*/ 
+/* Remove Dark Theme Adjustments block */
