@@ -7,7 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatWidgetButton = document.querySelector('.chat-widget-button');
 
     // --- CONFIGURATION ---
-    const API_ENDPOINT = 'YOUR_API_ENDPOINT_HERE'; // <--- Replace this
+    // Get API endpoint from environment config
+    const config = window.ENV_CONFIG || {};
+    const API_ENDPOINT = config.API_ENDPOINT || 'YOUR_API_ENDPOINT_HERE'; // Fallback if not in ENV
+    
+    console.log('Using API endpoint:', API_ENDPOINT); // Debug log
+    
     const ASSISTANT_NAME = 'Pho24'; // Changed from Assistant
     const ASSISTANT_AVATAR = 'placeholder-avatar.png'; // <-- Replace with your assistant's avatar path
     // const USER_AVATAR = 'placeholder-user.png'; // No user avatar in current design
@@ -103,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            const assistantReply = data.reply || "Sorry, I couldn't process that.";
+            const assistantReply = data.response || "Sorry, I couldn't process that.";
 
             console.log('Received from API:', assistantReply);
             addMessageToChat(ASSISTANT_NAME, assistantReply, getCurrentTime()); // Use ASSISTANT_NAME
