@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
     // Get API endpoint from environment config
     const config = window.ENV_CONFIG || {};
-    const API_ENDPOINT = config.API_ENDPOINT || 'YOUR_API_ENDPOINT_HERE'; // Fallback if not in ENV
+    
+    // Use local proxy endpoint (server.js handles the CORS issues)
+    const API_ENDPOINT = '/api/ask';
+    
+    // CORS proxy option (kept for reference)
+    // const API_ENDPOINT = `https://corsproxy.io/?${encodeURIComponent(config.API_ENDPOINT || 'YOUR_API_ENDPOINT_HERE')}`;
     
     console.log('Using API endpoint:', API_ENDPOINT); // Debug log
     
@@ -99,7 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Origin': window.location.origin,
                 },
+                credentials: 'omit',
+                mode: 'cors',
                 body: JSON.stringify({ query: messageText })
             });
 
