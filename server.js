@@ -2,11 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
 const path = require('path');
-const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(cors());
@@ -24,8 +22,11 @@ app.get('/config.js', (req, res) => {
   res.send(config);
 });
 
-// Static files middleware
-app.use(express.static(path.join(__dirname)));
+// Static files middleware - only needed for local development
+// On Vercel, static files are handled directly by Vercel
+if (process.env.NODE_ENV !== 'production') {
+  app.use(express.static(path.join(__dirname)));
+}
 
 // API Proxy endpoint
 app.post('/api/ask', async (req, res) => {
@@ -33,21 +34,28 @@ app.post('/api/ask', async (req, res) => {
     const { query } = req.body;
     console.log('Proxying request to API:', query);
 
-    const apiUrl = process.env.API_ENDPOINT || 'https://odd-disk-7724.ploomber.app/ask';
+    // Updated API endpoint or use environment variable
+    const apiUrl = process.env.API_ENDPOINT || 'https://odd-disk-7724.ploomber.app/api/chat';
+    
+    console.log('Sending request to:', apiUrl);
     
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query })
+      body: JSON.stringify({ query }),
+      redirect: 'follow', // Follow redirects automatically
     });
 
     if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('API error response:', errorText);
+      throw new Error(`API responded with status: ${response.status}, message: ${errorText.substring(0, 100)}`);
     }
 
     const data = await response.json();
+    console.log('API response:', data);
     res.json(data);
   } catch (error) {
     console.error('Proxy error:', error.message);
@@ -58,12 +66,17 @@ app.post('/api/ask', async (req, res) => {
   }
 });
 
-// Serve the main HTML file for all other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+// For local development, serve the main HTML file
+if (process.env.NODE_ENV !== 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-}); 
+  const PORT = process.env.PORT || 8080;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app; 

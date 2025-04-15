@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "echo 'Build complete'"
+  },
+  "engines": {
+    "node": ">=14.x"
   },
   "keywords": ["chat", "assistant", "pho24"],
   "author": "",

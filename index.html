@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatFlow</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Fallback config in case the dynamic one fails -->
+    <script src="config.js"></script>
+    <!-- Try to load dynamic config from API -->
+    <script>
+        // Attempt to load dynamic config from API
+        fetch('/api/config')
+            .then(response => response.text())
+            .then(js => {
+                try {
+                    // Execute the returned JavaScript
+                    const scriptEl = document.createElement('script');
+                    scriptEl.textContent = js;
+                    document.head.appendChild(scriptEl);
+                    console.log('Dynamic config loaded');
+                } catch (e) {
+                    console.warn('Failed to load dynamic config, using static fallback', e);
+                }
+            })
+            .catch(err => {
+                console.warn('Failed to fetch dynamic config, using static fallback', err);
+            });
+    </script>
 </head>
 <body>
     <div class="chat-container" style="display: none;">
@@ -24,9 +46,7 @@
     </div>
     <button class="chat-widget-button">💬</button>
 
-    <!-- Load configuration first -->
-    <script src="config.js"></script>
-    <!-- Then load main script -->
+    <!-- Load main script -->
     <script src="script.js"></script>
 </body>
 </html> 

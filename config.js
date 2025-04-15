@@ -1,4 +1,5 @@
-// This file will be populated with environment variables during build
+// This file is a static fallback for environments where the dynamic config fails
 window.ENV_CONFIG = {
-  API_ENDPOINT: 'https://odd-disk-7724.ploomber.app/ask'
+  // This will be overridden by the server-generated config if it loads
+  API_ENDPOINT: '/api/ask'
 }; 
