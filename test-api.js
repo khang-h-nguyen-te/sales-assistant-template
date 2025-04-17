@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 // API endpoint
-const apiUrl = 'https://odd-disk-7724.ploomber.app/chat';
+const apiUrl = 'https://pho24-chatbot.vercel.app/ask';
 
 async function testApi() {
   try {

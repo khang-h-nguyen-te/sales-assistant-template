@@ -1,4 +1,4 @@
-// Vercel serverless function for the /config endpoint
+// Vercel serverless function for the /api/config endpoint
 module.exports = (req, res) => {
   // Set content type to JavaScript
   res.setHeader('Content-Type', 'application/javascript');

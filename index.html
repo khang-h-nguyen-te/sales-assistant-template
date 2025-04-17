@@ -10,7 +10,7 @@
     <!-- Try to load dynamic config from API -->
     <script>
         // Attempt to load dynamic config from API
-        fetch('/config')
+        fetch('/api/config')
             .then(response => response.text())
             .then(js => {
                 try {
