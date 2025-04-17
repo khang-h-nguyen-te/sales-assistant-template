@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const config = window.ENV_CONFIG || {};
     
     // Use local proxy endpoint (server.js handles the CORS issues)
-    const API_ENDPOINT = '/api/ask';
+    const API_ENDPOINT = '/ask';
     
     // CORS proxy option (kept for reference)
     // const API_ENDPOINT = `https://corsproxy.io/?${encodeURIComponent(config.API_ENDPOINT || 'YOUR_API_ENDPOINT_HERE')}`;

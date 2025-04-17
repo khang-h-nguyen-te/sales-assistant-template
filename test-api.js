@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 // API endpoint
-const apiUrl = 'https://odd-disk-7724.ploomber.app/api/chat';
+const apiUrl = 'https://odd-disk-7724.ploomber.app/chat';
 
 async function testApi() {
   try {

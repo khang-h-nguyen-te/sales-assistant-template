@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-// Vercel serverless function for the /api/ask endpoint
+// Vercel serverless function for the /ask endpoint
 module.exports = async (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
       console.log('Proxying request to API:', query);
 
       // Updated API endpoint or use environment variable
-      const apiUrl = process.env.API_ENDPOINT || 'https://odd-disk-7724.ploomber.app/api/chat';
+      const apiUrl = process.env.API_ENDPOINT || 'https://odd-disk-7724.ploomber.app/chat';
       
       console.log('Sending request to:', apiUrl);
       
