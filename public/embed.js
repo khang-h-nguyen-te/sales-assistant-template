@@ -14,8 +14,8 @@
   iframe.style.position = 'fixed';
   iframe.style.bottom = '20px';
   iframe.style.right = '20px';
-  iframe.style.width = '70px';  // Size for just the button
-  iframe.style.height = '70px';
+  iframe.style.width = '60px';  // Slightly smaller size for better mobile fit
+  iframe.style.height = '60px';
   iframe.style.border = 'none';
   iframe.style.zIndex = '99999';
   iframe.style.borderRadius = '50%';
@@ -38,19 +38,20 @@
     const windowHeight = window.innerHeight;
     
     if (windowWidth <= 480) {
-      // Mobile phone
+      // Small mobile phone
       return {
-        width: '100%', 
-        height: '85vh',
+        width: 'calc(100% - 20px)', // Full width minus small margins
+        height: '80vh',
         bottom: '0',
-        right: '0',
+        right: '10px',
+        left: '10px',
         borderRadius: '15px 15px 0 0'
       };
     } else if (windowWidth <= 768) {
-      // Tablet
+      // Tablet/larger phone
       return {
-        width: '370px',
-        height: Math.min(600, windowHeight * 0.8) + 'px',
+        width: Math.min(350, windowWidth - 40) + 'px', // Adapt to screen size with margins
+        height: Math.min(550, windowHeight * 0.8) + 'px',
         borderRadius: '15px'
       };
     } else {
@@ -65,7 +66,7 @@
   
   // Handle window resize
   window.addEventListener('resize', function() {
-    if (iframe.style.width !== '70px') {
+    if (iframe.style.width !== '60px') {
       // Only update if chat is expanded
       const dimensions = getChatDimensions();
       Object.assign(iframe.style, dimensions);
@@ -85,10 +86,11 @@
       iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=chat';
     } else if (event.data === 'collapse') {
       // Collapse iframe when chat is closed
-      iframe.style.width = '70px';
-      iframe.style.height = '70px';
+      iframe.style.width = '60px';
+      iframe.style.height = '60px';
       iframe.style.bottom = '20px';
       iframe.style.right = '20px';
+      iframe.style.left = 'auto'; // Reset left position
       iframe.style.borderRadius = '50%';
       iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=button';
     }

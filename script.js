@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (buttonImage) {
                     buttonImage.style.width = '100%';
                     buttonImage.style.height = '100%';
-                    buttonImage.style.objectFit = 'cover';
+                    buttonImage.style.objectFit = 'contain';
                 }
             }
         }
