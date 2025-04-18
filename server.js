@@ -54,8 +54,12 @@ app.post('/api/ask', async (req, res) => {
       throw new Error(`API responded with status: ${response.status}, message: ${errorText.substring(0, 100)}`);
     }
 
+    // Get the response data
     const data = await response.json();
     console.log('API response:', data);
+    
+    // Send the response back to the client
+    // The markdown parsing will happen on the client side
     res.json(data);
   } catch (error) {
     console.error('Proxy error:', error.message);

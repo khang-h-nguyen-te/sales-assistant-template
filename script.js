@@ -19,9 +19,38 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Using API endpoint:', API_ENDPOINT); // Debug log
     
     const ASSISTANT_NAME = 'Pho24'; // Changed from Assistant
-    const ASSISTANT_AVATAR = 'placeholder-avatar.png'; // <-- Replace with your assistant's avatar path
+    const ASSISTANT_AVATAR = 'placeholder-avatar.jpeg'; // <-- Replace with your assistant's avatar path
     // const USER_AVATAR = 'placeholder-user.png'; // No user avatar in current design
     const INITIAL_MESSAGE = 'Hey, how can I help you today?'; // Initial message from Pho24
+
+    // Function to parse Markdown to HTML
+    function parseMarkdown(text) {
+        // Check if marked is available
+        if (typeof marked !== 'undefined') {
+            try {
+                // Configure marked for safe HTML
+                marked.setOptions({
+                    breaks: true, // Convert \n to <br>
+                    gfm: true,    // GitHub Flavored Markdown
+                    sanitize: false // Don't sanitize - we'll handle this
+                });
+                return marked.parse(text);
+            } catch (e) {
+                console.error('Error parsing markdown:', e);
+                return text; // Fallback to plain text
+            }
+        }
+        return text; // Fallback if marked is not available
+    }
+
+    // Function to sanitize HTML
+    function sanitizeHTML(html) {
+        // Very basic sanitization - for production, use a library like DOMPurify
+        return html
+            .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+            .replace(/onclick/gi, 'data-disabled-onclick')
+            .replace(/onerror/gi, 'data-disabled-onerror');
+    }
 
     // Function to add a message to the chat display
     function addMessageToChat(sender, text, time, isUser = false) {
@@ -36,10 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let messageContentHTML;
         const formattedTime = time || getCurrentTime();
+        
+        // Parse markdown for assistant messages
+        const processedText = isUser ? text : sanitizeHTML(parseMarkdown(text));
 
         if (isUser) {
             messageContentHTML = `
-                <div class="message-content">${text}</div>
+                <div class="message-content">${processedText}</div>
                 <div class="message-time">${formattedTime}</div>
             `;
         } else {
@@ -47,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${ASSISTANT_AVATAR}" alt="${ASSISTANT_NAME} Avatar" class="avatar">
                 <div class="message-details">
                     <div class="message-sender">${sender}</div>
-                    <div class="message-content">${text}</div>
+                    <div class="message-content markdown-content">${processedText}</div>
                     <div class="message-time">${formattedTime}</div>
                 </div>
             `;

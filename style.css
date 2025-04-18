@@ -319,3 +319,111 @@ body {
 }
 
 /* Remove Dark Theme Adjustments block */
+
+/* Markdown Content Styling */
+.markdown-content {
+    /* Base styles */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+}
+
+.markdown-content p {
+    margin-bottom: 10px;
+}
+
+.markdown-content strong,
+.markdown-content b {
+    font-weight: bold;
+}
+
+.markdown-content em,
+.markdown-content i {
+    font-style: italic;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.markdown-content h1 { font-size: 1.4em; }
+.markdown-content h2 { font-size: 1.3em; }
+.markdown-content h3 { font-size: 1.2em; }
+.markdown-content h4 { font-size: 1.1em; }
+.markdown-content h5, 
+.markdown-content h6 { font-size: 1em; }
+
+.markdown-content ul,
+.markdown-content ol {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.markdown-content li {
+    margin-bottom: 5px;
+}
+
+.markdown-content code {
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.markdown-content pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+.markdown-content pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.markdown-content blockquote {
+    border-left: 3px solid #ccc;
+    padding-left: 10px;
+    color: #555;
+    margin: 0 0 10px;
+}
+
+.markdown-content a {
+    color: var(--pho24-green);
+    text-decoration: underline;
+}
+
+.markdown-content a:hover {
+    text-decoration: none;
+}
+
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.markdown-content hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+/* Adjust message content padding for markdown */
+.message.assistant .message-content {
+    padding: 12px 15px;
+    background-color: #e5e5ea;
+    color: #333;
+    border-bottom-left-radius: 5px;
+}
