@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Using API endpoint:', API_ENDPOINT); // Debug log
     
-    const ASSISTANT_NAME = 'Pho24'; // Changed from Assistant
+    const ASSISTANT_NAME = 'PHỞ24®'; // Changed from Assistant
     const ASSISTANT_AVATAR = 'placeholder-avatar.png'; // <-- Replace with your assistant's avatar path
     // const USER_AVATAR = 'placeholder-user.png'; // No user avatar in current design
     const INITIAL_MESSAGE = 'Hey, how can I help you today?'; // Initial message from Pho24
