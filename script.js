@@ -19,9 +19,28 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Using API endpoint:', API_ENDPOINT); // Debug log
     
     const ASSISTANT_NAME = 'Pho24'; // Changed from Assistant
-    const ASSISTANT_AVATAR = 'placeholder-avatar.jpeg'; // <-- Replace with your assistant's avatar path
+    const ASSISTANT_AVATAR = 'placeholder-avatar.png'; // <-- Replace with your assistant's avatar path
     // const USER_AVATAR = 'placeholder-user.png'; // No user avatar in current design
     const INITIAL_MESSAGE = 'Hey, how can I help you today?'; // Initial message from Pho24
+
+    // Warm up the API when the page loads to prevent cold start delays
+    (async function warmUpAPI() {
+        try {
+            console.log('Warming up API...');
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: '__ping' })
+            });
+            if (response.ok) {
+                console.log('API warmed up successfully');
+            }
+        } catch (error) {
+            console.warn('API warm-up failed, will retry on first user message:', error);
+        }
+    })();
 
     // Function to parse Markdown to HTML
     function parseMarkdown(text) {
@@ -132,22 +151,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             console.log('Sending to API:', messageText);
-            const response = await fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Origin': window.location.origin,
-                },
-                credentials: 'omit',
-                mode: 'cors',
-                body: JSON.stringify({ query: messageText })
-            });
+            let retries = 2;
+            let success = false;
+            let data;
+            
+            while (retries > 0 && !success) {
+                try {
+                    const response = await fetch(API_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Origin': window.location.origin,
+                        },
+                        credentials: 'omit',
+                        mode: 'cors',
+                        body: JSON.stringify({ query: messageText })
+                    });
 
-            if (!response.ok) {
-                throw new Error(`API error: ${response.statusText}`);
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.statusText}`);
+                    }
+
+                    data = await response.json();
+                    success = true;
+                } catch (error) {
+                    console.error(`Retry attempt ${3-retries} failed:`, error);
+                    retries--;
+                    if (retries === 0) {
+                        throw error;
+                    }
+                    // Wait a second before retrying
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
             }
 
-            const data = await response.json();
             const assistantReply = data.response || "Sorry, I couldn't process that.";
 
             console.log('Received from API:', assistantReply);
