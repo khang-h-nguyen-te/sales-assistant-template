@@ -26,10 +26,63 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if running in iframe
     const isInIframe = window.self !== window.top;
 
+    // Handle URL parameters for display mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+
+    // Apply mode-specific classes to the body and html
+    if (mode === 'button') {
+        document.documentElement.classList.add('button-mode');
+        document.body.classList.add('button-mode');
+    }
+
     // Function to notify parent window about size changes
     function notifyParent(message) {
         if (isInIframe && window.parent) {
             window.parent.postMessage(message, '*');
+        }
+    }
+
+    // Handle button-only mode
+    if (mode === 'button') {
+        console.log('Button mode active');
+        if (chatContainer) chatContainer.style.display = 'none';
+        if (chatWidgetButton) {
+            chatWidgetButton.style.display = 'flex';
+            
+            // Make sure button takes up the full space
+            chatWidgetButton.style.width = '100%';
+            chatWidgetButton.style.height = '100%';
+            
+            // Apply specific button styling for iframe
+            if (isInIframe) {
+                document.body.style.margin = '0';
+                document.body.style.padding = '0';
+                document.body.style.overflow = 'hidden';
+                document.body.style.background = 'transparent';
+                chatWidgetButton.style.position = 'fixed';
+                chatWidgetButton.style.top = '0';
+                chatWidgetButton.style.left = '0';
+                chatWidgetButton.style.borderRadius = '50%';
+                chatWidgetButton.style.margin = '0';
+                
+                // Ensure image fills the space
+                const buttonImage = chatWidgetButton.querySelector('img');
+                if (buttonImage) {
+                    buttonImage.style.width = '100%';
+                    buttonImage.style.height = '100%';
+                    buttonImage.style.objectFit = 'cover';
+                }
+            }
+        }
+    } else if (mode === 'chat') {
+        console.log('Chat mode active');
+        if (chatContainer) chatContainer.style.display = 'flex';
+        if (chatWidgetButton) chatWidgetButton.style.display = 'none';
+        
+        // Make sure initial message is shown
+        if (chatMessages && chatMessages.children.length === 0 && INITIAL_MESSAGE) {
+            addMessageToChat(ASSISTANT_NAME, INITIAL_MESSAGE, getCurrentTime());
         }
     }
 
@@ -223,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatWidgetButton.addEventListener('click', () => {
             chatContainer.style.display = 'flex';
             chatWidgetButton.style.display = 'none';
-             // Add initial message only when chat opens for the first time
+            // Add initial message only when chat opens for the first time
             if (chatMessages.children.length === 0 && INITIAL_MESSAGE) { 
                 addMessageToChat(ASSISTANT_NAME, INITIAL_MESSAGE, getCurrentTime());
             }
@@ -240,9 +293,11 @@ document.addEventListener('DOMContentLoaded', () => {
             notifyParent('collapse');
         });
 
-        // Initially hide the chat container and show the button
-        chatContainer.style.display = 'none';
-        chatWidgetButton.style.display = 'flex';
+        // Set initial state if not in specific mode
+        if (!mode) {
+            chatContainer.style.display = 'none';
+            chatWidgetButton.style.display = 'flex';
+        }
     }
 
     // Remove initial message display on DOM load, it's now added when chat opens

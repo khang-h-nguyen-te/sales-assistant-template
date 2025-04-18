@@ -8,9 +8,9 @@
   container.style.zIndex = '99999'; // Higher z-index to ensure visibility
   document.body.appendChild(container);
   
-  // Create and load iframe
+  // Create and load iframe with proper URL parameters to indicate button mode
   const iframe = document.createElement('iframe');
-  iframe.src = 'https://sales-assistant-template-pi.vercel.app';
+  iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=button';
   iframe.style.position = 'fixed';
   iframe.style.bottom = '20px';
   iframe.style.right = '20px';
@@ -23,6 +23,8 @@
   iframe.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
   iframe.style.transition = 'all 0.3s ease-in-out';
   iframe.style.maxHeight = '80vh'; // Maximum height on viewport
+  iframe.style.backgroundColor = 'transparent'; // Ensure background is transparent
+  iframe.allowTransparency = "true"; // Allow transparency in the iframe
   
   // Add to container
   container.appendChild(iframe);
@@ -80,6 +82,7 @@
       // Expand iframe when chat is opened
       const dimensions = getChatDimensions();
       Object.assign(iframe.style, dimensions);
+      iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=chat';
     } else if (event.data === 'collapse') {
       // Collapse iframe when chat is closed
       iframe.style.width = '70px';
@@ -87,6 +90,7 @@
       iframe.style.bottom = '20px';
       iframe.style.right = '20px';
       iframe.style.borderRadius = '50%';
+      iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=button';
     }
   });
 })(); 
