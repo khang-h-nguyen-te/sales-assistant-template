@@ -21,13 +21,13 @@ body {
 }
 
 .chat-container {
-    width: 400px;
-    max-width: 100%;
-    height: 700px;
-    background-color: #fff; /* Light theme main container background */
-    /* background-color: #1a1a2e; */ /* Dark theme comment */
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    max-height: 620px;
+    background-color: #fff;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Lighter shadow for light bg */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: none;
     flex-direction: column;
     overflow: hidden;
@@ -37,12 +37,23 @@ body {
     z-index: 1000;
 }
 
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+    .chat-container {
+        max-width: 100%;
+        width: 100%;
+        height: 85vh;
+        max-height: 85vh;
+        bottom: 0;
+        right: 0;
+        border-radius: 15px 15px 0 0;
+    }
+}
+
 /* --- Header --- */
 .chat-header {
-    /* background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); */ /* Original gradient */
-    background-color: var(--pho24-green); /* Pho24 Green Header */
-    color: white; /* White text on green */
-    /* color: #333; */ /* Text color for light grey solid header */
+    background-color: var(--pho24-green);
+    color: white;
     padding: 15px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -91,6 +102,37 @@ body {
 
 .chat-header .close-btn:hover {
     opacity: 1;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 480px) {
+    .chat-header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 12px 15px;
+    }
+    
+    .chat-header h1 {
+        font-size: 20px;
+    }
+    
+    .chat-header p {
+        font-size: 13px;
+    }
+    
+    .chat-messages {
+        flex-grow: 1;
+        max-height: calc(85vh - 130px); /* Adjust for header and input */
+    }
+    
+    .message-content {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    
+    .chat-input-area {
+        padding: 8px 10px;
+    }
 }
 
 /* --- Messages Area --- */
