@@ -23,6 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // const USER_AVATAR = 'placeholder-user.png'; // No user avatar in current design
     const INITIAL_MESSAGE = 'Hey, how can I help you today?'; // Initial message from Pho24
 
+    // Check if running in iframe
+    const isInIframe = window.self !== window.top;
+
+    // Function to notify parent window about size changes
+    function notifyParent(message) {
+        if (isInIframe && window.parent) {
+            window.parent.postMessage(message, '*');
+        }
+    }
+
     // Warm up the API when the page loads to prevent cold start delays
     (async function warmUpAPI() {
         try {
@@ -217,11 +227,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (chatMessages.children.length === 0 && INITIAL_MESSAGE) { 
                 addMessageToChat(ASSISTANT_NAME, INITIAL_MESSAGE, getCurrentTime());
             }
+            
+            // Notify parent window that chat has opened
+            notifyParent('expand');
         });
 
         closeButton.addEventListener('click', () => {
             chatContainer.style.display = 'none';
             chatWidgetButton.style.display = 'flex';
+            
+            // Notify parent window that chat has closed
+            notifyParent('collapse');
         });
 
         // Initially hide the chat container and show the button

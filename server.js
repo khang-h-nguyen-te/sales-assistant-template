@@ -39,9 +39,14 @@ app.get('/config.js', (req, res) => {
   res.send(config);
 });
 
-// Static files middleware - only needed for local development
-// On Vercel, static files are handled directly by Vercel
+// Static files middleware - serve from both root and public directory
 if (process.env.NODE_ENV !== 'production') {
+  // In development, serve files from both locations
+  app.use(express.static(path.join(__dirname)));
+  app.use(express.static(path.join(__dirname, 'public')));
+} else {
+  // In production, prioritize files in public directory
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.static(path.join(__dirname)));
 }
 
