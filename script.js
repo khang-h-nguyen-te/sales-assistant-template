@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typingIndicator) {
                 typingIndicator.remove();
             }
-            addMessageToChat(ASSISTANT_NAME, "Oops! Something went wrong. Please try again.", getCurrentTime()); // Use ASSISTANT_NAME
+            addMessageToChat(ASSISTANT_NAME, "Oops! My broth isn't ready yet! Like a good bowl of Phở, some things can't be rushed. Please try again and I promise not to overcook your response next time!", getCurrentTime()); // Use ASSISTANT_NAME
         }
     }
 
