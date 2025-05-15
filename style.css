@@ -20,6 +20,39 @@ body {
     --pho24-green-darker: #4d6a2f;
 }
 
+/* Wix integration - remove ALL shadows from chat elements */
+body[data-wf-site] .chat-container,
+html[data-wix-app] .chat-container,
+.chat-container[wix-integration="true"],
+body[data-wf-site] .chat-widget-button,
+html[data-wix-app] .chat-widget-button,
+.chat-widget-button[wix-integration="true"],
+/* Target all nested elements as well */
+body[data-wf-site] .chat-container *,
+html[data-wix-app] .chat-container *,
+.chat-container[wix-integration="true"] *,
+body[data-wf-site] .chat-widget-button *,
+html[data-wix-app] .chat-widget-button *,
+.chat-widget-button[wix-integration="true"] *,
+/* Add wix-mode class selectors */
+html.wix-mode .chat-container,
+body.wix-mode .chat-container,
+html.wix-mode .chat-widget-button,
+body.wix-mode .chat-widget-button,
+html.wix-mode .chat-container *,
+body.wix-mode .chat-container *,
+html.wix-mode .chat-widget-button *,
+body.wix-mode .chat-widget-button * {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -ms-filter: none !important;
+    border: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+}
+
+/* Remove existing selectors since they're now covered above */
 /* Wix integration - remove shadows */
 body[data-wf-site] .chat-container,
 html[data-wix-app] .chat-container,

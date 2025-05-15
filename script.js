@@ -6,14 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.querySelector('.close-btn');
     const chatWidgetButton = document.querySelector('.chat-widget-button');
 
-    // Check for Wix integration
-    const isInWix = window.location.href.indexOf('wix.com') > -1 || 
+    // Handle URL parameters for display mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const mode = urlParams.get('mode');
+    const isWixParam = urlParams.get('wix') === 'true';
+
+    // Check for Wix integration (either via DOM or URL parameter)
+    const isInWix = isWixParam || 
+                window.location.href.indexOf('wix.com') > -1 || 
                 document.querySelector('html[data-wix-app]') !== null || 
                 document.querySelector('body[data-wf-site]') !== null;
     
     // Apply Wix integration attribute to chat container
     if (isInWix && chatContainer) {
         chatContainer.setAttribute('wix-integration', 'true');
+        document.documentElement.classList.add('wix-mode');
+        document.body.classList.add('wix-mode');
     }
 
     // Apply Wix integration attribute to chat widget button
@@ -40,10 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if running in iframe
     const isInIframe = window.self !== window.top;
-
-    // Handle URL parameters for display mode
-    const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode');
 
     // Apply mode-specific classes to the body and html
     if (mode === 'button') {

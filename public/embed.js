@@ -15,7 +15,7 @@
   
   // Create and load iframe with proper URL parameters to indicate button mode
   const iframe = document.createElement('iframe');
-  iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=button';
+  iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=button' + (isInWix ? '&wix=true' : '');
   iframe.style.position = 'fixed';
   iframe.style.bottom = '20px';
   iframe.style.right = '20px';
@@ -40,6 +40,7 @@
     iframe.style.msFilter = "none";
     iframe.setAttribute('wix-integration', 'true');
   }
+  
   
   // Add to container
   container.appendChild(iframe);
@@ -98,7 +99,7 @@
       Object.assign(iframe.style, dimensions);
       // Set src last to avoid flicker during transition
       setTimeout(() => {
-        iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=chat';
+        iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=chat' + (isInWix ? '&wix=true' : '');
       }, 10);
     } else {
       // Collapse - set all properties at once
@@ -120,7 +121,7 @@
       });
       // Set src last to avoid flicker
       setTimeout(() => {
-        iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=button';
+        iframe.src = 'https://sales-assistant-template-pi.vercel.app?mode=button' + (isInWix ? '&wix=true' : '');
       }, 10);
     }
   }
