@@ -20,6 +20,28 @@ body {
     --pho24-green-darker: #4d6a2f;
 }
 
+/* Wix integration - remove shadows */
+body[data-wf-site] .chat-container,
+html[data-wix-app] .chat-container,
+.chat-container[wix-integration="true"] {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -ms-filter: none !important;
+    border: none !important;
+}
+
+/* Wix integration - remove shadows from chat button */
+body[data-wf-site] .chat-widget-button,
+html[data-wix-app] .chat-widget-button,
+.chat-widget-button[wix-integration="true"] {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -ms-filter: none !important;
+    border: none !important;
+}
+
 .chat-container {
     width: 100%;
     max-width: 380px;

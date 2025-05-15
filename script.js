@@ -6,6 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.querySelector('.close-btn');
     const chatWidgetButton = document.querySelector('.chat-widget-button');
 
+    // Check for Wix integration
+    const isInWix = window.location.href.indexOf('wix.com') > -1 || 
+                document.querySelector('html[data-wix-app]') !== null || 
+                document.querySelector('body[data-wf-site]') !== null;
+    
+    // Apply Wix integration attribute to chat container
+    if (isInWix && chatContainer) {
+        chatContainer.setAttribute('wix-integration', 'true');
+    }
+
+    // Apply Wix integration attribute to chat widget button
+    if (isInWix && chatWidgetButton) {
+        chatWidgetButton.setAttribute('wix-integration', 'true');
+    }
+
     // --- CONFIGURATION ---
     // Get API endpoint from environment config
     const config = window.ENV_CONFIG || {};
