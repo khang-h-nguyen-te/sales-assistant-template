@@ -9,8 +9,9 @@
 
 body {
     /* Body background remains transparent */
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background-color: transparent;
+    box-shadow: none;
 }
 
 /* Define Pho24 Colors */
@@ -82,7 +83,7 @@ html[data-wix-app] .chat-widget-button,
     max-height: 620px;
     background-color: #fff;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
     display: none;
     flex-direction: column;
     overflow: hidden;
