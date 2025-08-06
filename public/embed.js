@@ -25,7 +25,7 @@
   iframe.style.zIndex = '99999';
   iframe.style.borderRadius = '50%';
   iframe.style.overflow = 'hidden';
-  iframe.style.boxShadow = isInWix ? 'none' : '0 4px 10px rgba(0, 0, 0, 0.2)';
+  iframe.style.boxShadow = 'none';
   iframe.style.transition = 'none';
   iframe.style.maxHeight = '80vh'; // Maximum height on viewport
   iframe.style.backgroundColor = 'transparent'; // Ensure background is transparent
