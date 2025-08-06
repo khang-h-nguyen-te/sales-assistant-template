@@ -256,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     data = await response.json();
                     success = true;
+                    
                 } catch (error) {
                     console.error(`Retry attempt ${3-retries} failed:`, error);
                     retries--;
